@@ -81,17 +81,15 @@ window.onload = () => {
             password.classList.add('is-invalid')
             errors.push('Debes ingresar una contraseña')
         }else{
-            if(!passNumb == null){
+            if(passNumb.length>0){
                 let nums = ''
                 passNumb.map(e=>{
                     nums+=e
                 })
-                if(!nums.match(/^\d{1,4}$/)){
+                if(nums.length>=5){
                     password.classList.add('is-invalid')
                     errors.push('De 1 a 4 numeros')
-                }
-            }else{
-                if(!password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[$!*#])([A-Za-z\d$!*#]|[^ ]){8,11}$/)){
+                }else if(!password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[$!*#])([A-Za-z\d$!*#]|[^ ]){8,11}$/)){
                     password.classList.add('is-invalid')
                     errors.push('La contraseña debe tener entre 8 y 11 caracteres, una mayuscula, entre 1 a 4 numeros y un caracter especial($!*#)')
                 }else{
@@ -102,7 +100,9 @@ window.onload = () => {
         }
 
         if(errors.length > 0){
-            let ul = document.querySelector('.errors')
+            let sectionError = document.querySelector('.errors')
+            sectionError.innerHTML = '<ul class=error>' + '</ul>'            
+            let ul = document.querySelector('ul')
             for(let error of errors){
                 ul.innerHTML += '<li class="is-invalid">' + error + '</li>'            
             }
