@@ -75,16 +75,29 @@ window.onload = () => {
             login.classList.add('is-valid')
         }
 
+        let passNumb = password.value.match(/(\d+)/g)
+
         if(!password.value){
             password.classList.add('is-invalid')
             errors.push('Debes ingresar una contraseña')
         }else{
-            if(!password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*((\S*\d){1,2}))(?=.*[$!*#])([A-Za-z\d$!*#]|[^ ]){8,30}$/)){
-                password.classList.add('is-invalid')
-                errors.push('La contraseña debe tener entre 8 y 11 caracteres, una mayuscula, un numero y un caracter especial($!*#)')
+            if(!passNumb == null){
+                let nums = ''
+                passNumb.map(e=>{
+                    nums+=e
+                })
+                if(!nums.match(/^\d{1,4}$/)){
+                    password.classList.add('is-invalid')
+                    errors.push('De 1 a 4 numeros')
+                }
             }else{
-                password.classList.remove('is-invalid')
-                password.classList.add('is-valid')
+                if(!password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[$!*#])([A-Za-z\d$!*#]|[^ ]){8,11}$/)){
+                    password.classList.add('is-invalid')
+                    errors.push('La contraseña debe tener entre 8 y 11 caracteres, una mayuscula, entre 1 a 4 numeros y un caracter especial($!*#)')
+                }else{
+                    password.classList.remove('is-invalid')
+                    password.classList.add('is-valid')
+                }
             }
         }
 
